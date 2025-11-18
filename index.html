@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[証明写真・焼増]<br>ご注文フォーム</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* 右端の細いナビ（固定） */
+        .side-nav {
+            position: fixed;
+            right: -5px;
+            top: 80%;
+            transform: translateY(-50%) translateX(13px);
+            background: #13ca5e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px;
+            border-radius: 10px 0 0 10px;
+            z-index: 1000;
+            width: 35px;
+        }
+
+        .side-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 10px;
+            margin: 5px 0;
+            padding: 5px;
+            transition: background 0.3s, transform 0.2s;
+            border-radius: 5px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .side-nav a:active {
+            transform: scale(1.0);
+        }
+
+        .side-nav a span {
+            font-size: 24px;
+            position: absolute;
+            left: -0px;
+            top: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .side-nav {
+                right: 2px;
+                width: 30px;
+            }
+
+            .side-nav a {
+                width: 28px;
+                height: 28px;
+            }
+
+            .side-nav a i {
+                font-size: 12px;
+            }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e7e7e7;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 5px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background-color: #fdfdfd;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            box-sizing: border-box;
+            margin: 0 auto 40px;
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #13ca5e, #0fa958);
+            color: white;
+            padding: 20px;
+            border-radius: 0 15px 0px 45px;
+            text-align: center;
+            display: block;
+            margin: -20px -15px 20px -15px;
+            font-size: 26px;
+            font-weight: 600;
+            box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            padding: 3px;
+            font-weight: 600;
+            background-color: #13ca5e;
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: left;
+            text-indent: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .labelContent {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            padding: 3px;
+            font-weight: 600;
+            background-color: #13ca5e;
+            color: white;
+            border-radius: 6px;
+            font-size: 16px;
+            text-align: left;
+            text-indent: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .required {
+            color: #ffffff;
+            font-weight: lighter;
+            font-size: 0.6em;
+            margin-left: 5px;
+            vertical-align: 0.8em;
+            background-color: rgb(255, 15, 15);
+            padding: 0 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        textarea,
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #13ca5e;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+
+        .toggle-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .toggle-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #f7f7f7;
+            cursor: pointer;
+            box-sizing: border-box;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #13ca5e;
+            color: #000000;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #444;
+            transform: scale(1.05);
+        }
+
+        button.active {
+            outline: 2px solid #696969;
+            outline-offset: 2px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background-color: #dc3545;
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .submit-button:hover {
+            background-color: #c82333;
+        }
+
+        .info-box {
+            background-color: #eef9f5;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .confirm-box {
+            background-color: #f9f9d6;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .confirm-box p {
+            margin: 4px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            input,
+            button,
+            textarea {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 右側の追従ナビ -->
+    <div class="side-nav" id="sideNav">
+        <a href="#submit-section">
+            <span>⇩</span>
+            <i class="fas fa-paper-plane"></i>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>[証明写真・焼増]<br>ご注文フォーム</h1>
+
+        <!-- 本人 / 保護者 -->
+        <div class="label">選択<span class="required">必須</span></div>
+        <div class="toggle-buttons">
+            <button type="button" id="selfBtn" onclick="selectApplicant(this)">本人</button>
+            <button type="button" id="parentBtn" onclick="selectApplicant(this)">保護者</button>
+        </div>
+
+        <!-- 学校名 -->
+        <div class="label">学校名<span class="required">必須</span></div>
+        <input type="text" id="school" placeholder="例）〇〇高等学校"
+            oninput="saveInput('school'); updateDisplayInfo();">
+
+        <!-- 学科・クラス -->
+        <div class="label">学科・クラス<span class="required">必須</span></div>
+        <input type="text" id="departmentClass" placeholder="例）普通科 1年A組"
+            oninput="saveInput('departmentClass'); updateDisplayInfo();">
+
+        <!-- お名前（漢字）-->
+        <div class="label">お名前（漢字）<span class="required">必須</span></div>
+        <input type="text" id="nameKanji" placeholder="例）山田 太郎"
+            oninput="saveInput('nameKanji'); updateDisplayInfo();">
+
+        <!-- お名前（よみがな）-->
+        <div class="label">お名前（よみがな）</div>
+        <input type="text" id="nameKana" placeholder="例）やまだ たろう"
+            oninput="saveInput('nameKana'); updateDisplayInfo();">
+
+        <!-- 連絡先 -->
+        <div class="label">連絡先<span class="required">必須</span></div>
+        <input type="text" id="contact" placeholder="電話番号やメールアドレスなど"
+            oninput="saveInput('contact'); updateDisplayInfo();">
+
+        <!-- ご注文内容 -->
+        <div class="labelContent">ご注文内容</div>
+        <div class="info-box">
+            例）ブレザー 上：Lサイズ 1枚 / スラックス：Mサイズ 2本 など、サイズ・枚数を詳しくご記入ください。
+        </div>
+        <textarea id="order" rows="4" placeholder="ご注文内容を入力してください"
+            oninput="saveInput('order'); updateDisplayInfo();"></textarea>
+
+        <!-- 第1希望日時 -->
+        <div class="label">第1希望日時<span class="required">必須</span></div>
+        <input type="datetime-local" id="date1" onchange="saveInput('date1'); updateDisplayInfo();">
+
+        <!-- 第2希望日時 -->
+        <div class="label">第2希望日時<span class="required">必須</span></div>
+        <input type="datetime-local" id="date2" onchange="saveInput('date2'); updateDisplayInfo();">
+
+        <!-- 第3希望日時 -->
+        <div class="label">第3希望日時</div>
+        <input type="datetime-local" id="date3" onchange="saveInput('date3'); updateDisplayInfo();">
+
+        <!-- 入力内容確認 -->
+        <div class="labelContent">入力内容の確認</div>
+        <div class="confirm-box" id="displayInfo">
+            入力するとここに内容が表示されます。
+        </div>
+
+        <!-- 送信ボタン -->
+        <button class="submit-button" id="submit-section" onclick="submitForm()">送信</button>
+    </div>
+
+    <!-- LIFF SDK -->
+    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <script>
+        let applicantType = '';
+
+        // LIFF初期化 & ローカルストレージから復元
+        document.addEventListener('DOMContentLoaded', function () {
+            // LIFF init（必要に応じてIDを変更してください）
+            liff.init({
+                liffId: '2006896977-1oJmD3Xx'
+            }).then(() => {
+                console.log('LIFF初期化成功');
+            }).catch((err) => {
+                console.log('LIFF初期化失敗', err);
+            });
+
+            // 保存データ復元
+            const ids = ['school', 'departmentClass', 'nameKanji', 'nameKana', 'contact', 'order', 'date1', 'date2', 'date3'];
+            ids.forEach(id => {
+                const v = localStorage.getItem('orderForm_' + id);
+                if (v !== null) {
+                    document.getElementById(id).value = v;
+                }
+            });
+
+            const savedType = localStorage.getItem('orderForm_applicantType');
+            if (savedType) {
+                applicantType = savedType;
+                if (savedType === '本人') {
+                    document.getElementById('selfBtn').classList.add('active');
+                } else if (savedType === '保護者') {
+                    document.getElementById('parentBtn').classList.add('active');
+                }
+            }
+
+            // サイドナビのスムーズスクロール
+            document.querySelectorAll('.side-nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            updateDisplayInfo();
+        });
+
+        function selectApplicant(button) {
+            document.getElementById('selfBtn').classList.remove('active');
+            document.getElementById('parentBtn').classList.remove('active');
+            button.classList.add('active');
+            applicantType = button.innerText;
+            localStorage.setItem('orderForm_applicantType', applicantType);
+            updateDisplayInfo();
+        }
+
+        function saveInput(id) {
+            const value = document.getElementById(id).value;
+            localStorage.setItem('orderForm_' + id, value);
+        }
+
+        function formatDateTime(datetime) {
+            if (!datetime) return '';
+            const date = new Date(datetime);
+            if (isNaN(date)) return '';
+
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+
+            return `${year}年${month}月${day}日 ${hours}時${minutes}分`;
+        }
+
+        function updateDisplayInfo() {
+            const school = document.getElementById('school').value.trim();
+            const departmentClass = document.getElementById('departmentClass').value.trim();
+            const nameKanji = document.getElementById('nameKanji').value.trim();
+            const nameKana = document.getElementById('nameKana').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+            const order = document.getElementById('order').value.trim();
+            const date1 = document.getElementById('date1').value;
+            const date2 = document.getElementById('date2').value;
+            const date3 = document.getElementById('date3').value;
+
+            const html = `
+                <p>・種別：${applicantType || '未選択'}</p>
+                <p>・学校名：${school || '未入力'}</p>
+                <p>・学科・クラス：${departmentClass || '未入力'}</p>
+                <p>・お名前（漢字）：${nameKanji || '未入力'}</p>
+                <p>・お名前（よみがな）：${nameKana || '未入力'}</p>
+                <p>・連絡先：${contact || '未入力'}</p>
+                <p>・ご注文内容：<br>${order || '未入力'}</p>
+                <hr>
+                <p>【希望日時】</p>
+                <p>・第1希望：${formatDateTime(date1) || '未入力'}</p>
+                <p>・第2希望：${formatDateTime(date2) || '未入力'}</p>
+                <p>・第3希望：${formatDateTime(date3) || '未入力'}</p>
+            `;
+            document.getElementById('displayInfo').innerHTML = html;
+        }
+
+        function formatDateForMessage(datetime) {
+            if (!datetime) return '';
+            const date = new Date(datetime);
+            if (isNaN(date)) return '';
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            return `${year}年${month}月${day}日 ${hours}:${minutes}`;
+        }
+
+        function submitForm() {
+            const formData = {
+                applicantType: applicantType,
+                school: document.getElementById('school').value.trim(),
+                departmentClass: document.getElementById('departmentClass').value.trim(),
+                nameKanji: document.getElementById('nameKanji').value.trim(),
+                nameKana: document.getElementById('nameKana').value.trim(),
+                contact: document.getElementById('contact').value.trim(),
+                order: document.getElementById('order').value.trim(),
+                dates: [
+                    document.getElementById('date1').value,
+                    document.getElementById('date2').value,
+                    document.getElementById('date3').value
+                ]
+            };
+
+            // 必須チェック
+            if (!formData.applicantType) {
+                alert('「本人」か「保護者」を選択してください。');
+                return;
+            }
+            if (!formData.school) {
+                alert('学校名を入力してください。');
+                return;
+            }
+            if (!formData.departmentClass) {
+                alert('学科・クラスを入力してください。');
+                return;
+            }
+            if (!formData.nameKanji) {
+                alert('お名前（漢字）を入力してください。');
+                return;
+            }
+            if (!formData.contact) {
+                alert('連絡先を入力してください。');
+                return;
+            }
+            if (!formData.dates[0]) {
+                alert('第1希望日時を入力してください。');
+                return;
+            }
+            if (!formData.dates[1]) {
+                alert('第2希望日時を入力してください。');
+                return;
+            }
+
+            const messageText =
+                `【ご注文フォーム】\n` +
+                `種別：${formData.applicantType}\n` +
+                `学校名：${formData.school}\n` +
+                `学科・クラス：${formData.departmentClass}\n` +
+                `お名前（漢字）：${formData.nameKanji}\n` +
+                `お名前（よみがな）：${formData.nameKana || '（未入力）'}\n` +
+                `連絡先：${formData.contact}\n\n` +
+                `ご注文内容：\n${formData.order || '（未入力）'}\n\n` +
+                `【希望日時】\n` +
+                `・第1希望：${formatDateForMessage(formData.dates[0])}\n` +
+                `・第2希望：${formatDateForMessage(formData.dates[1])}\n` +
+                `・第3希望：${formatDateForMessage(formData.dates[2])}\n`;
+
+            liff.sendMessages([{
+                type: 'text',
+                text: messageText
+            }]).then(() => {
+                alert('送信しました。担当者からの連絡をお待ちください。');
+                liff.closeWindow();
+            }).catch((err) => {
+                console.error('メッセージの送信に失敗しました', err);
+                alert('送信に失敗しました。回線状況などを確認してください。');
+            });
+        }
+    </script>
+</body>
+
+</html>
